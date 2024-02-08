@@ -9,8 +9,6 @@ import shutil
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "green", "dark-blue"
 
-isHindi = False
-
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -19,6 +17,8 @@ class App(customtkinter.CTk):
         # configure window
         self.title("CREATE with your DATE")
         self.geometry(f"{1100}x{580}")
+
+        
 
         # configure grid layout (1x1)
         self.grid_columnconfigure(0, weight=1)
@@ -34,7 +34,7 @@ class App(customtkinter.CTk):
         self.label = customtkinter.CTkLabel(self.main_frame, text=self.label_text, anchor="center", font=label_font)
         self.label.grid(row=0, column=0, padx=(0,0), pady=(20, 0), sticky="nsew", columnspan=5)
 
-        self.label_2 = customtkinter.CTkLabel(self.main_frame, text="Create captivating short videos in seconds! Express your story with just a few words.")
+        self.label_2 = customtkinter.CTkLabel(self.main_frame, text="Create captivating short videos in seconds! Express your story with just a few words.\n Kindly wait for 5 minutes for video to be generated you'll recieve pop-up once done.")
         self.label_2.grid(row=1, column=0, padx=20, pady=(30, 0))
 
         self.textbox = customtkinter.CTkTextbox(self.main_frame, width=500)
@@ -45,7 +45,7 @@ class App(customtkinter.CTk):
 
         self.generate_button_hindi = customtkinter.CTkButton(self.main_frame, command=self.generate_button_event_hindi)
         self.generate_button_hindi.place(x=400, y=480)
-        self.generate_button_hindi.configure(text="in Hindi")
+        self.generate_button_hindi.configure(text="in Vietnamese")
 
         self.generate_button_eng = customtkinter.CTkButton(self.main_frame, command=self.generate_button_event)
         self.generate_button_eng.place(x=550, y=480)
@@ -67,6 +67,7 @@ class App(customtkinter.CTk):
     def button_click(self):
         print("Button clicked!")
        
+
 
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="Type in a number:", title="CTkInputDialog")
@@ -106,7 +107,6 @@ class App(customtkinter.CTk):
         download = tk.Button(popup, text="Saved in your Desktop", fg="black", command=lambda: self.popup_action("Download"))
         download.pack(pady=0)
 
-        
 
         english_input = translatetext.translate_text(self.text_variable.get(), 'en')
         
@@ -122,7 +122,7 @@ class App(customtkinter.CTk):
             print(f"Directory '{directory}' already exists.")
 
         
-        integrating.createVideo(english_input)
+        integrating.createVideo(english_input, False)
 
         try:
             # Attempt to remove the directory and its contents recursively
@@ -179,9 +179,8 @@ class App(customtkinter.CTk):
         else:
             print(f"Directory '{directory}' already exists.")
 
-        isHindi = True
         
-        integrating.createVideo(english_input)
+        integrating.createVideo(english_input, True)
         
         
     def popup_action(str):
