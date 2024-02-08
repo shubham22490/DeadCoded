@@ -1,5 +1,4 @@
 import requests
-texttoconvert = "hi how are you"
 lang = "en"                #hi = hindi, en = english
                             
                             
