@@ -3,7 +3,7 @@ import video
 import gptTotext
 import stockvid
 
-title = "boys"
+title = "girls"
 
 response = gptTotext.generate_script(title)[1]
 # response = "Rainforests are home to over half of the world's plant and animal species, making them incredibly diverse and important ecosystems. Protecting rainforests is crucial for the preservation of our planet's biodiversity."

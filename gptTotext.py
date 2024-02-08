@@ -21,10 +21,6 @@ def generate_script(video_subject: str) -> list[str]:
     Generate a script for a video, depending on the subject of the video.
     Subject: {video_subject}
 
-    The script is to be returned as a string.
-
-    Here is an example of a string:
-    "This is an example string."
 
     Do not under any circumstance reference this prompt in your response.
 
@@ -42,8 +38,8 @@ def generate_script(video_subject: str) -> list[str]:
 
     Title should also be the plain text. Nothing should be marked bold.
 
-    Do NOT USE ANY THINGS LIKE "TITLE: " or "SCRIPT: ".
-    In first line give the title and in second like give the script. Follow this format strictly.
+    STRICTLY Do NOT USE ANY THINGS LIKE "TITLE: " or "SCRIPT: ".
+    Follow this format strictly => In first line give the title and in second like give the script.
 
     ONLY RETURN THE RAW CONTENT OF THE SCRIPT. DO NOT INCLUDE "VOICEOVER", "NARRATOR" OR SIMILAR INDICATORS OF WHAT SHOULD BE SPOKEN AT THE BEGINNING OF EACH PARAGRAPH OR LINE.
     """
@@ -53,6 +49,7 @@ def generate_script(video_subject: str) -> list[str]:
         model=g4f.models.gpt_35_turbo_16k_0613,
         messages=[{"role": "user", "content": prompt}],
     )
+    response = response.replace(':','\n')
 
     print(colored(response, "cyan"))
     ans = response.split("\n")
@@ -76,7 +73,6 @@ def generate_script(video_subject: str) -> list[str]:
         # Remove markdown syntax
         response = re.sub(r'\[.*\]', '', response)
         response = re.sub(r'\(.*\)', '', response)
-
         return resp
     print(colored("[-] GPT returned an empty response.", "red"))
 
@@ -192,3 +188,7 @@ def generate_metadata(video_subject: str, script: str) -> Tuple[str, str, List[s
     keywords = get_search_terms(video_subject, 6, script)  # Assuming you want 6 keywords  
   
     return title, description, keywords  
+
+
+
+generate_script("boys")
