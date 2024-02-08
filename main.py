@@ -17,7 +17,7 @@ class App(customtkinter.CTk):
         super().__init__()
 
         # configure window
-        self.title("CREATE with your DATE")
+        self.title("Reel It")
         self.geometry(f"{1100}x{580}")
 
         # configure grid layout (1x1)
@@ -29,7 +29,7 @@ class App(customtkinter.CTk):
         self.main_frame.grid(row=0, column=0, sticky="nsew")
 
 
-        self.label_text = "Craft Your Reel Story"
+        self.label_text = "Craft Your Reel"
         label_font = ("Helvetica", 40)
         self.label = customtkinter.CTkLabel(self.main_frame, text=self.label_text, anchor="center", font=label_font)
         self.label.grid(row=0, column=0, padx=(0,0), pady=(20, 0), sticky="nsew", columnspan=5)
