@@ -5,6 +5,9 @@ dependencies=(
     g4f
     typing
     termcolor
+    moviepy
+    firebase-admin
+    google-auth-oauthlib
     # Add more packages as needed
 )
 
