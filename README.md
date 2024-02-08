@@ -45,6 +45,8 @@ The application uses the following Python libraries:
 
 ## How to Use
 
+You can run the program via the main.py file, or you can directly run the .exe file.
+
 The application provides several functions for video processing:
 
 - `save_video(video_url: str, directory: str = "./temp") -> str`: This function downloads a video from a given URL and saves it to a specified directory. It returns the path to the saved video.
