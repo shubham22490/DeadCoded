@@ -8,6 +8,8 @@ dependencies=(
     moviepy
     firebase-admin
     google-auth-oauthlib
+    pexels-api-py
+    requests
     # Add more packages as needed
 )
 
