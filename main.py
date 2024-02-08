@@ -8,6 +8,8 @@ import os
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "green", "dark-blue"
 
+isHindi = False
+
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -40,7 +42,7 @@ class App(customtkinter.CTk):
 
         self.text_variable = tk.StringVar() #text 
 
-        self.generate_button_hindi = customtkinter.CTkButton(self.main_frame, command=self.generate_button_event)
+        self.generate_button_hindi = customtkinter.CTkButton(self.main_frame, command=self.generate_button_event_hindi)
         self.generate_button_hindi.place(x=400, y=480)
         self.generate_button_hindi.configure(text="in Hindi")
 
@@ -126,7 +128,57 @@ class App(customtkinter.CTk):
         integrating.createVideo(english_input)
         
 
+    def generate_button_event_hindi(self):
+        
+        #the text entered in the textbox
+        self.text_variable.set(self.textbox.get("1.0", "end-1c"))
+        
+        customtkinter.set_appearance_mode("System")
 
+        popup_width = 300
+        popup_height = 200
+
+        self.update_idletasks()  # Ensure window is updated to get correct dimensions
+        self_width = self.winfo_width()
+        self_height = self.winfo_height()
+
+        x = self.winfo_x() + (self_width - popup_width) // 2
+        y = self.winfo_y() + (self_height - popup_height) // 2
+
+        popup = tk.Toplevel(self, background="grey")
+        popup.title("Video Generated")
+        popup.geometry(f"{popup_width}x{popup_height}+{x}+{y}")
+
+        label = tk.Label(popup, text="Your video has been generated successfully.", fg="black", bg="grey")
+        label.pack(pady=10)
+
+        download = tk.Button(popup, text="Download", fg="black", command=lambda: self.popup_action("Download"))
+        download.pack(pady=0)
+
+        youtube = tk.Button(popup, text="Upload on YouTube", fg="black", command=lambda: self.popup_action("Youtube"))
+        youtube.pack(side="left", padx=22, pady=10)
+
+        google = tk.Button(popup, text="Sign-in on Google", fg="black", command=lambda: self.popup_action("Google"))
+        google.pack(side="left", padx=10, pady=10)
+
+        english_input = translatetext.translate_text(self.text_variable.get(), 'en')
+        
+
+        # Specify the directory path you want to create
+        directory = "temp"
+
+        # Create the directory if it doesn't exist
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+            print(f"Directory '{directory}' created successfully!")
+        else:
+            print(f"Directory '{directory}' already exists.")
+
+        isHindi = True
+        
+        integrating.createVideo(english_input)
+        
+        
     def popup_action(str):
         print("")
     

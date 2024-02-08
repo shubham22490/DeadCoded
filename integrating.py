@@ -2,13 +2,22 @@ import text_to_speech
 import video
 import gptTotext
 import stockvid
+import translatetext
+import main
+
 
 def createVideo(title):
+    print(main.isHindi)
     response = gptTotext.generate_script(title)[1]
     # response = "Rainforests are home to over half of the world's plant and animal species, making them incredibly diverse and important ecosystems. Protecting rainforests is crucial for the preservation of our planet's biodiversity."
     vid_link = stockvid.generateVideo(title)[1]
     print(vid_link)
     video.save_video(vid_link)
+    
+    if(main.isHindi==True):           #it is Hindi
+        response = translatetext(response, 'hi')
+    
+    
     length = text_to_speech.generate_audio(response)
 
     print(video.generate_subtitles("temp/record.mp3"))
