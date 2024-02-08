@@ -49,7 +49,7 @@ def generate_script(video_subject: str) -> list[str]:
         model=g4f.models.gpt_35_turbo_16k_0613,
         messages=[{"role": "user", "content": prompt}],
     )
-    if not resp.find("\n"):
+    if not response.find("\n"):
         response = response.replace(':','\n')
 
     print(colored(response, "cyan"))

@@ -16,5 +16,4 @@ def createVideo(title):
 
     video.generate_video("temp/final.mp4", "temp/record.mp3", "temp/raw.srt")
 
-createVideo("food")
     
