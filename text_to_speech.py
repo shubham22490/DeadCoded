@@ -1,10 +1,11 @@
 import requests
+import pydub
 
 CHUNK_SIZE = 1024
 key = "01ac859eeb04fadac37ac177c1c4dd6e"
 
 
-def generate_audio(sentence: str, voice_type: str, api_key: str) -> str:
+def generate_audio(sentence: str, api_key: str = key, voice_type: str = "male") -> str:
     url = ""
     if voice_type == 'female':
         url = "https://api.elevenlabs.io/v1/text-to-speech/AZnzlk1XvdvUeBnXmlld"
@@ -24,11 +25,10 @@ def generate_audio(sentence: str, voice_type: str, api_key: str) -> str:
         }
     }
     response = requests.post(url, json=data, headers=headers)
-    with open('output.mp3', 'wb') as f:
+    with open('temp/record.mp3', 'wb') as f:
         for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
             if chunk:
                 f.write(chunk)
-    return 'output.mp3'
+    audio = pydub.AudioSegment.from_mp3("temp/record.mp3")
 
-
-generate_audio("यह काम कर रहा है", "male", key)
+    return len(audio)/1000

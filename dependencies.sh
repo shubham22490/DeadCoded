@@ -10,6 +10,8 @@ dependencies=(
     google-auth-oauthlib
     pexels-api-py
     requests
+    srt_equalizer
+    pydub
     # Add more packages as needed
 )
 
