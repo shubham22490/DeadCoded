@@ -4,6 +4,7 @@ import customtkinter
 import translatetext
 import integrating
 import os
+import shutil
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -124,6 +125,14 @@ class App(customtkinter.CTk):
 
         
         integrating.createVideo(english_input)
+
+        try:
+            # Attempt to remove the directory and its contents recursively
+            shutil.rmtree(directory)
+            print(f"Directory '{directory}' successfully deleted.")
+        except OSError as e:
+            # Handle errors if directory deletion fails
+            print(f"Error: {directory} : {e.strerror}")
         
 
 
