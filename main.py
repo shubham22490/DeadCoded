@@ -23,6 +23,8 @@ class App(customtkinter.CTk):
         self.main_frame.grid(row=0, column=0, sticky="nsew")
 
 
+
+
         self.label_text = "Craft Your Reel Story"
         label_font = ("Helvetica", 40)
         self.label = customtkinter.CTkLabel(self.main_frame, text=self.label_text, anchor="center", font=label_font)
@@ -33,8 +35,9 @@ class App(customtkinter.CTk):
 
         self.textbox = customtkinter.CTkTextbox(self.main_frame, width=500)
         self.textbox.grid(row=2, column=0, padx=(320, 320), pady=(100, 0), sticky="nsew")
-    
+        self.textbox.insert("0.0", "Enter the prompt!")
 
+        self.text_variable = tk.StringVar() #text 
 
         self.generate_button_hindi = customtkinter.CTkButton(self.main_frame, command=self.generate_button_event)
         self.generate_button_hindi.place(x=400, y=480)
@@ -44,24 +47,18 @@ class App(customtkinter.CTk):
         self.generate_button_eng.place(x=550, y=480)
         self.generate_button_eng.configure(text="in English")
 
-
         self.label_2 = customtkinter.CTkLabel(self.main_frame, text="Generate", font=("Helvetica",25))
         self.label_2.grid(row=4, column=0, padx=20, pady=(10, 0))
 
         self.label_1 = customtkinter.CTkLabel(self.main_frame, text="Your video will be generated shortly.")
         self.label_1.place(x=450, y=520)
 
-        
-      
         self.main_frame.grid_columnconfigure(0, weight=1)
-
      
-
-       
-        self.textbox.insert("0.0", "Enter the prompt!")
+        
         self.mic = customtkinter.CTkButton(self.main_frame, command=self.button_click,  width=10, corner_radius=10)
         self.mic.configure(text="\U0001F3A4", font=("Arial",20))
-        self.mic.place(x=735, y=225)  # Adjust the coordinates as needed
+        self.mic.place(x=735, y=225)  
 
     def button_click(self):
         print("Button clicked!")
@@ -79,8 +76,11 @@ class App(customtkinter.CTk):
         customtkinter.set_widget_scaling(new_scaling_float)
 
     def generate_button_event(self):
-        customtkinter.set_appearance_mode("Dark")
-
+        
+        #the text entered in the textbox
+        self.text_variable.set(self.textbox.get("1.0", "end-1c"))
+        
+        customtkinter.set_appearance_mode("System")
 
         popup_width = 300
         popup_height = 200
@@ -93,32 +93,26 @@ class App(customtkinter.CTk):
         y = self.winfo_y() + (self_height - popup_height) // 2
 
         popup = tk.Toplevel(self, background="grey")
-        popup.title("Pop-Up with Buttons")
+        popup.title("Video Generated")
         popup.geometry(f"{popup_width}x{popup_height}+{x}+{y}")
 
-        # Apply customtkinter theme to the pop-up window
-        # customtkinter.set_themed_background(popup, "System", "green")
-        # customtkinter.set_themed_foreground(popup, "System", "green")
-        label = tk.Label(popup, text="Choose an action:")
+        label = tk.Label(popup, text="Your video has been generated successfully.", fg="black", bg="grey")
         label.pack(pady=10)
 
-        # Set contrasting foreground color for buttons
-        button_fg_color = "white" if customtkinter.get_appearance_mode() == "Dark" else "black"
+        download = tk.Button(popup, text="Download", fg="black", command=lambda: self.popup_action("Download"))
+        download.pack(pady=0)
 
-        button0 = tk.Button(popup, text="Download", fg="black", command=lambda: self.popup_action("Action 1"))
-        button0.pack(pady=5)
+        youtube = tk.Button(popup, text="Upload on YouTube", fg="black", command=lambda: self.popup_action("Youtube"))
+        youtube.pack(side="left", padx=22, pady=10)
 
-        button1 = tk.Button(popup, text="Upload on YouTube", fg="black", command=lambda: self.popup_action("Action 1"))
-        button1.pack(pady=5)
-
-        button2 = tk.Button(popup, text="Sign-in on Google", fg="black", command=lambda: self.popup_action("Action 2"))
-        button2.pack(pady=5)
-
-        close_button = tk.Button(popup, text="Close", fg="black", command=popup.destroy)
-        close_button.pack(pady=10)
+        google = tk.Button(popup, text="Sign-in on Google", fg="black", command=lambda: self.popup_action("Google"))
+        google.pack(side="left", padx=10, pady=10)
 
 
 
+    def popup_action(str):
+        print("")
+    
 
 if __name__ == "__main__":
     app = App()
