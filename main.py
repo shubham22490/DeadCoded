@@ -1,6 +1,9 @@
 import tkinter as tk
 import tkinter.messagebox
 import customtkinter
+import translatetext
+import integrating
+import os
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -21,8 +24,6 @@ class App(customtkinter.CTk):
 
         self.main_frame = customtkinter.CTkFrame(self, width=1100, corner_radius=0)
         self.main_frame.grid(row=0, column=0, sticky="nsew")
-
-
 
 
         self.label_text = "Craft Your Reel Story"
@@ -108,6 +109,22 @@ class App(customtkinter.CTk):
         google = tk.Button(popup, text="Sign-in on Google", fg="black", command=lambda: self.popup_action("Google"))
         google.pack(side="left", padx=10, pady=10)
 
+        english_input = translatetext.translate_text(self.text_variable.get(), 'en')
+        
+
+        # Specify the directory path you want to create
+        directory = "temp"
+
+        # Create the directory if it doesn't exist
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+            print(f"Directory '{directory}' created successfully!")
+        else:
+            print(f"Directory '{directory}' already exists.")
+
+        
+        integrating.createVideo(english_input)
+        
 
 
     def popup_action(str):
