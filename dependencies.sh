@@ -5,6 +5,8 @@ dependencies=(
     g4f
     typing
     termcolor
+    pexels-api-py
+    requests
     # Add more packages as needed
 )
 
