@@ -103,7 +103,7 @@ class App(customtkinter.CTk):
         label = tk.Label(popup, text="Your video has been generated successfully.", fg="black", bg="grey")
         label.pack(pady=10)
 
-        download = tk.Button(popup, text="Saved in your Desktop", fg="black", command=lambda: self.popup_action("Download"))
+        download = tk.Button(popup, text="Saved in your current directory", fg="black", command=lambda: self.popup_action("Download"))
         download.pack(pady=0)
 
         
