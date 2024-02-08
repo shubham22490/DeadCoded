@@ -45,7 +45,7 @@ The application uses the following Python libraries:
 
 ## How to Use
 
-You can run the program via the main.py file, or you can directly run the .exe file.
+You can run the program via the main.py file, or you can directly run the .exe file(if it works :( ).
 
 The application provides several functions for video processing:
 
