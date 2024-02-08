@@ -49,7 +49,8 @@ def generate_script(video_subject: str) -> list[str]:
         model=g4f.models.gpt_35_turbo_16k_0613,
         messages=[{"role": "user", "content": prompt}],
     )
-    response = response.replace(':','\n')
+    if not resp.find("\n"):
+        response = response.replace(':','\n')
 
     print(colored(response, "cyan"))
     ans = response.split("\n")
@@ -188,7 +189,3 @@ def generate_metadata(video_subject: str, script: str) -> Tuple[str, str, List[s
     keywords = get_search_terms(video_subject, 6, script)  # Assuming you want 6 keywords  
   
     return title, description, keywords  
-
-
-
-generate_script("boys")

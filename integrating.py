@@ -15,4 +15,6 @@ def createVideo(title):
     video.combine_videos(['temp/raw.mp4'], length)
 
     video.generate_video("temp/final.mp4", "temp/record.mp3", "temp/raw.srt")
+
+createVideo("food")
     
