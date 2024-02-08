@@ -4,6 +4,7 @@ import customtkinter
 import translatetext
 import integrating
 import os
+import shutil
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -102,14 +103,10 @@ class App(customtkinter.CTk):
         label = tk.Label(popup, text="Your video has been generated successfully.", fg="black", bg="grey")
         label.pack(pady=10)
 
-        download = tk.Button(popup, text="Download", fg="black", command=lambda: self.popup_action("Download"))
+        download = tk.Button(popup, text="Saved in your Desktop", fg="black", command=lambda: self.popup_action("Download"))
         download.pack(pady=0)
 
-        youtube = tk.Button(popup, text="Upload on YouTube", fg="black", command=lambda: self.popup_action("Youtube"))
-        youtube.pack(side="left", padx=22, pady=10)
-
-        google = tk.Button(popup, text="Sign-in on Google", fg="black", command=lambda: self.popup_action("Google"))
-        google.pack(side="left", padx=10, pady=10)
+        
 
         english_input = translatetext.translate_text(self.text_variable.get(), 'en')
         
@@ -126,6 +123,14 @@ class App(customtkinter.CTk):
 
         
         integrating.createVideo(english_input)
+
+        try:
+            # Attempt to remove the directory and its contents recursively
+            shutil.rmtree(directory)
+            print(f"Directory '{directory}' successfully deleted.")
+        except OSError as e:
+            # Handle errors if directory deletion fails
+            print(f"Error: {directory} : {e.strerror}")
         
 
     def generate_button_event_hindi(self):

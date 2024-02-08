@@ -12,6 +12,8 @@ dependencies=(
     requests
     srt_equalizer
     pydub
+    tk
+    customtkinter
     # Add more packages as needed
 )
 
