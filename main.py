@@ -101,14 +101,10 @@ class App(customtkinter.CTk):
         label = tk.Label(popup, text="Your video has been generated successfully.", fg="black", bg="grey")
         label.pack(pady=10)
 
-        download = tk.Button(popup, text="Download", fg="black", command=lambda: self.popup_action("Download"))
+        download = tk.Button(popup, text="Saved in your Desktop", fg="black", command=lambda: self.popup_action("Download"))
         download.pack(pady=0)
 
-        youtube = tk.Button(popup, text="Upload on YouTube", fg="black", command=lambda: self.popup_action("Youtube"))
-        youtube.pack(side="left", padx=22, pady=10)
-
-        google = tk.Button(popup, text="Sign-in on Google", fg="black", command=lambda: self.popup_action("Google"))
-        google.pack(side="left", padx=10, pady=10)
+        
 
         english_input = translatetext.translate_text(self.text_variable.get(), 'en')
         
