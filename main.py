@@ -18,47 +18,53 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        # background_image = tkinter.PhotoImage(file=")
-        # background_label = tk.Label(self.main_frame, image=background_image)
-        # background_label.place(relwidth=1, relheight=1)
 
         self.main_frame = customtkinter.CTkFrame(self, width=1100, corner_radius=0)
         self.main_frame.grid(row=0, column=0, sticky="nsew")
 
-        self.textbox = customtkinter.CTkTextbox(self.main_frame, width=500)
-        self.textbox.grid(row=2, column=0, padx=(320, 320), pady=(100, 0), sticky="nsew")
-        # Insert a speaker symbol (Unicode character) at the top right of the textbox
-        speaker_symbol = "\U0001F3A4"  # Unicode character for speaker symbol
-        self.textbox.insert("1.end", speaker_symbol)  # "1.end" refers to the end of line 1
-        
-
-        self.label_1 = customtkinter.CTkLabel(self.main_frame, text="Your video will be generated shortly.")
-        self.label_1.grid(row=3, column=0, padx=20, pady=(10, 0))
-
-        self.label_2 = customtkinter.CTkLabel(self.main_frame, text="Create captivating short videos in seconds! Express your story with just a few words.")
-        self.label_2.grid(row=1, column=0, padx=20, pady=(30, 0))
 
         self.label_text = "Craft Your Reel Story"
         label_font = ("Helvetica", 40)
         self.label = customtkinter.CTkLabel(self.main_frame, text=self.label_text, anchor="center", font=label_font)
         self.label.grid(row=0, column=0, padx=(0,0), pady=(20, 0), sticky="nsew", columnspan=5)
+
+        self.label_2 = customtkinter.CTkLabel(self.main_frame, text="Create captivating short videos in seconds! Express your story with just a few words.")
+        self.label_2.grid(row=1, column=0, padx=20, pady=(30, 0))
+
+        self.textbox = customtkinter.CTkTextbox(self.main_frame, width=500)
+        self.textbox.grid(row=2, column=0, padx=(320, 320), pady=(100, 0), sticky="nsew")
+    
+
+
+        self.generate_button_hindi = customtkinter.CTkButton(self.main_frame, command=self.generate_button_event)
+        self.generate_button_hindi.place(x=400, y=480)
+        self.generate_button_hindi.configure(text="in Hindi")
+
+        self.generate_button_eng = customtkinter.CTkButton(self.main_frame, command=self.generate_button_event)
+        self.generate_button_eng.place(x=550, y=480)
+        self.generate_button_eng.configure(text="in English")
+
+
+        self.label_2 = customtkinter.CTkLabel(self.main_frame, text="Generate", font=("Helvetica",25))
+        self.label_2.grid(row=4, column=0, padx=20, pady=(10, 0))
+
+        self.label_1 = customtkinter.CTkLabel(self.main_frame, text="Your video will be generated shortly.")
+        self.label_1.place(x=450, y=520)
+
+        
       
         self.main_frame.grid_columnconfigure(0, weight=1)
 
      
-       
-
-        # create radiobutton frame
-     
-        
-
-      
 
        
+        self.textbox.insert("0.0", "Enter the prompt!")
+        self.mic = customtkinter.CTkButton(self.main_frame, command=self.button_click,  width=10, corner_radius=10)
+        self.mic.configure(text="\U0001F3A4", font=("Arial",20))
+        self.mic.place(x=735, y=225)  # Adjust the coordinates as needed
 
-
-       
-        self.textbox.insert("0.0", "Enter the prompt!                                                                                                              ")
+    def button_click(self):
+        print("Button clicked!")
        
 
     def open_input_dialog_event(self):
@@ -72,8 +78,46 @@ class App(customtkinter.CTk):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
 
-    def sidebar_button_event(self):
-        print("sidebar_button click")
+    def generate_button_event(self):
+        customtkinter.set_appearance_mode("Dark")
+
+
+        popup_width = 300
+        popup_height = 200
+
+        self.update_idletasks()  # Ensure window is updated to get correct dimensions
+        self_width = self.winfo_width()
+        self_height = self.winfo_height()
+
+        x = self.winfo_x() + (self_width - popup_width) // 2
+        y = self.winfo_y() + (self_height - popup_height) // 2
+
+        popup = tk.Toplevel(self, background="grey")
+        popup.title("Pop-Up with Buttons")
+        popup.geometry(f"{popup_width}x{popup_height}+{x}+{y}")
+
+        # Apply customtkinter theme to the pop-up window
+        # customtkinter.set_themed_background(popup, "System", "green")
+        # customtkinter.set_themed_foreground(popup, "System", "green")
+        label = tk.Label(popup, text="Choose an action:")
+        label.pack(pady=10)
+
+        # Set contrasting foreground color for buttons
+        button_fg_color = "white" if customtkinter.get_appearance_mode() == "Dark" else "black"
+
+        button0 = tk.Button(popup, text="Download", fg="black", command=lambda: self.popup_action("Action 1"))
+        button0.pack(pady=5)
+
+        button1 = tk.Button(popup, text="Upload on YouTube", fg="black", command=lambda: self.popup_action("Action 1"))
+        button1.pack(pady=5)
+
+        button2 = tk.Button(popup, text="Sign-in on Google", fg="black", command=lambda: self.popup_action("Action 2"))
+        button2.pack(pady=5)
+
+        close_button = tk.Button(popup, text="Close", fg="black", command=popup.destroy)
+        close_button.pack(pady=10)
+
+
 
 
 if __name__ == "__main__":
